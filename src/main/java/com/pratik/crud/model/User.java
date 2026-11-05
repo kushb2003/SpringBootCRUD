@@ -7,19 +7,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 public class User implements Serializable{
 	
 	 @Id
 	 @GeneratedValue(strategy=GenerationType.AUTO)
+	 @JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	 private int id;
 	 private String name;
 	 private String sal;
 	public int getId() {
 		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
 	}
 	public String getName() {
 		return name;
@@ -35,7 +35,9 @@ public class User implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", sal=" + sal + "]";
+		// Deliberately excludes personal (name) and financial (sal) data so that logging or
+		// printing a User can never leak them.
+		return "User [id=" + id + "]";
 	}
 	 
 	 
