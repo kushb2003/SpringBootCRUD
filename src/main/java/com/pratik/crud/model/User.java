@@ -35,7 +35,10 @@ public class User implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", sal=" + sal + "]";
+		// Only the generated id is included: name and sal are personal data and must not
+		// reach logs or consoles through implicit string conversion. Since the id is an int,
+		// the output cannot carry CR/LF from user input.
+		return "User [id=" + id + "]";
 	}
 	 
 	 
