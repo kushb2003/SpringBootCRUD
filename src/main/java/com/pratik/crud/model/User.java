@@ -2,16 +2,20 @@ package com.pratik.crud.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class User implements Serializable{
 	
 	 @Id
 	 @GeneratedValue(strategy=GenerationType.AUTO)
+	 // The primary key is assigned by the server and is never bound from a request body.
+	 @JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	 private int id;
 	 private String name;
 	 private String sal;
@@ -35,7 +39,8 @@ public class User implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", sal=" + sal + "]";
+		// Salary is deliberately excluded so it never reaches logs or console output.
+		return "User [id=" + id + ", name=" + name + "]";
 	}
 	 
 	 
