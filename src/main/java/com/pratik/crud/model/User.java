@@ -7,11 +7,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 public class User implements Serializable{
 	
 	 @Id
 	 @GeneratedValue(strategy=GenerationType.AUTO)
+	 @JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	 private int id;
 	 private String name;
 	 private String sal;
@@ -35,7 +38,8 @@ public class User implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", sal=" + sal + "]";
+		// Salary is deliberately left out so it cannot reach logs or console output by accident.
+		return "User [id=" + id + ", name=" + name + "]";
 	}
 	 
 	 
